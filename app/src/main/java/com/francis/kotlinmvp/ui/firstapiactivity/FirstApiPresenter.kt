@@ -3,8 +3,8 @@ package com.francis.kotlinmvp.ui.firstapiactivity
 import android.annotation.SuppressLint
 import com.francis.kotlinmvp.app.AppbasePresenter
 import com.francis.kotlinmvp.data.response.CompainRes
-import com.francis.kotlinmvp.data.response.google.autocomplete.AutoCompleteResponse
-import com.francis.kotlinmvp.data.response.google.search.GoogleSearchResponse
+import com.francis.kotlinmvp.data.response.postdetails.PostDetailsResponse
+import com.francis.kotlinmvp.data.response.postlist.PostListResponse
 import com.francis.kotlinmvp.utils.RxjavaUtils
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
@@ -19,9 +19,9 @@ class FirstApiPresenter : AppbasePresenter<FirstApiView>() {
     }
 
     @SuppressLint("CheckResult")
-    fun getSearchResponse() {
+    fun getUserDetails() {
         view!!.showLoading()
-        repo?.getSearchRes()
+        repo?.getPostDetails()
             ?.compose(RxjavaUtils.applyObserverSchedulers())
             ?.subscribe({ response ->
                 view?.onApiSuccess(response)
@@ -37,15 +37,15 @@ class FirstApiPresenter : AppbasePresenter<FirstApiView>() {
     fun zipOperator() {
         view?.showLoading()
         Observable.zip(
-            repo?.getSearchRes(), repo?.getAutoComplete(),
-            BiFunction { t1: GoogleSearchResponse, t2: AutoCompleteResponse ->
+            repo?.getPostDetails(), repo?.getPostList(),
+            BiFunction { t1: PostDetailsResponse, t2: PostDetailsResponse ->
                 val res = CompainRes()
-                res.searchResponse = t1
-                res.autoCompleResponse = t2
+                res.postDetails = t1
+                res.postDetailList = t2
                 return@BiFunction res
             }
         ).compose(RxjavaUtils.applyObserverSchedulers())
-            .subscribe({ response ->
+            .subscribe({ response: CompainRes ->
                 view?.onZipResponseSuccess(response)
                 view?.hideLoading()
             },

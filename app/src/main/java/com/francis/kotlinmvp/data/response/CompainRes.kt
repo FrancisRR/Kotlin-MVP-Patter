@@ -1,10 +1,10 @@
 package com.francis.kotlinmvp.data.response
 
-import com.francis.kotlinmvp.data.response.google.autocomplete.AutoCompleteResponse
-import com.francis.kotlinmvp.data.response.google.search.GoogleSearchResponse
+import com.francis.kotlinmvp.data.response.postdetails.PostDetailsResponse
+import com.francis.kotlinmvp.data.response.postlist.PostListResponse
 
 class CompainRes {
 
-    var autoCompleResponse: AutoCompleteResponse? = null
-    var searchResponse: GoogleSearchResponse? = null
+    var postDetails: PostDetailsResponse? = null
+    var postDetailList: PostDetailsResponse? = null
 }

@@ -2,17 +2,16 @@ package com.francis.kotlinmvp.ui.firstapiactivity
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.francis.kotlinmvp.R
-import com.francis.kotlinmvp.app.AppController
+import com.francis.kotlinmvp.base.BaseActivity
 import com.francis.kotlinmvp.data.response.CompainRes
-import com.francis.kotlinmvp.data.response.google.search.GoogleSearchResponse
+import com.francis.kotlinmvp.data.response.postdetails.PostDetailsResponse
 import com.francis.kotlinmvp.utils.UiUtils
 
-class FirstApiActivity : AppCompatActivity(), FirstApiView {
+class FirstApiActivity :BaseActivity(), FirstApiView {
     var presenter: FirstApiPresenter? = null
     var dialog: ProgressDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +55,7 @@ class FirstApiActivity : AppCompatActivity(), FirstApiView {
     }
 
 
-    override fun onApiSuccess(response: GoogleSearchResponse?) {
+    override fun onApiSuccess(response: PostDetailsResponse?) {
         UiUtils.showToast(this, "Api response is success")
     }
 
